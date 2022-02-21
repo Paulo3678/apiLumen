@@ -22,5 +22,6 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix'=>'api/'], function() use($router){
     $router->get("user", "Index@buscarTodos");
     $router->post("user", "Index@novoUser");
-    $router->post("user", "Index@novoUser");
+    $router->get("user/{id}", "Index@buscarUm");
+    $router->delete("user/{id}", "Index@removerUser");
 });

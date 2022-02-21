@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use PDOException;
 use App\Models\DataBase;
 
@@ -38,7 +39,12 @@ class UserFactory
     public function findById($id)
     {
         $query = $this->pdo->query("SELECT * FROM user WHERE id=" . $id);
-        $listaDeAlunos = $query->fetchAll($this->pdo::FETCH_ASSOC);
+        $listaDeAlunos = $query->fetch($this->pdo::FETCH_ASSOC);
         return $listaDeAlunos;
+    }
+
+    public function removeUser($id)
+    {
+        return $this->pdo->exec("DELETE FROM user WHERE id=" . $id);
     }
 }

@@ -23,9 +23,18 @@ class Index extends Controller
         return response()->json($this->userFactory->findallUsers(), 200);
     }
 
-    public function buscarUm()
+    public function buscarUm(int $id)
     {
-        var_dump($this->userFactory->findById(1));
+        $user = $this->userFactory->findById($id);
+        
+        if(!$user){
+            return response()->json([
+                "Usuário não encontrado"
+            ], 404);
+        }
+        return response()->json([
+            $user
+        ], 200);
     }
 
     public function novoUser(Request $request)
@@ -56,6 +65,20 @@ class Index extends Controller
 
         return response()->json([
             "Usuário inserido com sucesso"
+        ], 200);
+    }
+
+    public function removerUser(int $id)
+    {   
+        $retorno = $this->userFactory->removeUser($id);
+
+        if(!$retorno){
+            return response()->json([
+                "Usuário não encontrado"
+            ], 404);
+        }
+        return response()->json([
+            "Usuário removido com sucesso"
         ], 200);
     }
 
