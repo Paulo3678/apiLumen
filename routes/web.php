@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Index;
+use App\Http\Controllers\Autenticacao;
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -19,7 +20,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix'=>'api/'], function() use($router){
+
+$router->post("/api/login", "Autenticacao@login");
+
+$router->group(['prefix' => 'api/', 'middleware' => "auth"], function () use ($router) {
     $router->get("user", "Index@buscarTodos");
     $router->post("user", "Index@novoUser");
     $router->get("user/{id}", "Index@buscarUm");

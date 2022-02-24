@@ -39,9 +39,18 @@ class UserFactory
     public function findById($id)
     {
         $query = $this->pdo->query("SELECT * FROM user WHERE id=" . $id);
-        $listaDeAlunos = $query->fetch($this->pdo::FETCH_ASSOC);
-        return $listaDeAlunos;
+        $user = $query->fetch($this->pdo::FETCH_ASSOC);
+        return $user;
     }
+
+    public function findOneByEmail(string $email)
+    {
+
+        $query = $this->pdo->query("SELECT * FROM user WHERE email='{$email}'");
+        $user = $query->fetch($this->pdo::FETCH_ASSOC);
+        return $user;
+    }
+
 
     public function removeUser($id)
     {
